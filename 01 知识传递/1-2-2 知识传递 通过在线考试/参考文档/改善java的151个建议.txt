@@ -1,5 +1,7 @@
 1.case中必须添加break
 对于此类问题，还有一个最简单的解决办法：修改IDE的警告级别，例如在Eclipse中，可以依次点击Performaces→Java→Compiler→Errors/Warnings→Potential Programming problems，然后修改‘switch’case fall-through为Errors级别，如果你胆敢不在case语句中加入break，那Eclipse直接就报个红叉给你看，这样就可以完全避免该问题的发生了。
+
+
 2.用整数类型处理货币
 在日常生活中，最容易接触到的小数就是货币，比如你付给售货员10元钱购买一个9.60元的零食，售货员应该找你0.4元也就是4毛钱才对，我们来看下面的程序：
 public class Client{
@@ -53,3 +55,24 @@ long dis2=LIGHT_SPEED*60L*8；
 long dis2=1L*LIGHT_SPEED*60*8；
 既然期望的结果是long型，那就让第一个参与运算的参数也是long型（1L）吧，也就是明说“嗨，我已经是长整型了，你们都跟着我一起转为长整型吧”。
 注意　基本类型转换时，使用主动声明方式减少不必要的Bug。
+
+
+4.反序列化时构造函数不会执行。
+总结一下，反序列化时final变量在以下情况下不会被重新赋值：
+通过构造函数为final变量赋值。
+通过方法返回值为final变量赋值。
+final修饰的属性不是基本类型。
+
+5.'A'instanceof Character
+这句话可能有读者会猜错，事实上它编译不通过，为什么呢？因为'A'是一个char类型，也就是一个基本类型，不是一个对象，instanceof只能用于对象的判断，不能用于基本类型的判断。
+
+6.null instanceof String
+返回值是false，这是instanceof特有的规则：若左操作数是null，结果就直接返回false，不再运算右操作数是什么类。
+
+7.new Date（）instanceof String
+编译通不过，因为Date类和String没有继承或实现关系，所以在编译时直接就报错了，instanceof操作符的左右操作数必须有继承或实现关系，否则编译会失败。
+
+8.建议20，不要只替换一个类(class文件)。因为替换的是常量类时，其他引用的类中的常量不会重新编译，还是旧的值。
+
+9.
+
